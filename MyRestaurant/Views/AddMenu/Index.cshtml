@@ -1,0 +1,47 @@
+﻿@model MyRestaurant.Models.Menu
+
+@{
+}
+<html>
+<head>
+    <style>
+        .mydiv {
+            border: 3px outset black;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #d75a5a2e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add Menu</h1>
+    <div class="mydiv">
+        <form method="post" action="Index" class="mt-5" enctype="multipart/form-data">
+
+            <div class="mb-7">
+                <label for="" class="form-label">Id</label>
+                <input type="text" class="form-control" id="Id" asp-for="MenuId">
+
+            </div>
+            <div class="mb-7">
+                <label for="" class="form-label">Name</label>
+                <input type="text" class="form-control" id="Name" asp-for="MenuName">
+
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Image</label>
+                <input type="file" class="form-control" id="files" asp-for="MenuImage">
+
+            </div>
+            <div class="mb-3">
+
+                <input type="submit" value="create" id="files" class="btn btn-danger" aria-describedby="emailHelp">
+
+            </div>
+
+
+        </form>
+    </div>
+</body>
+</html>

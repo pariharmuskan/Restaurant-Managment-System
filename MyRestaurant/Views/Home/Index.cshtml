@@ -1,0 +1,627 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Front Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /*    body {
+                    background-image: url('/image/crop-plate-with-salad.jpg');
+                    background-size: cover;
+                    background-position: center;
+                    color: white;
+                } */
+        /*Header*/
+        .hero_area {
+            position: relative;
+            min-height: 100vh;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .bg-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+            .bg-box img {
+                width: 100%;
+                height: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+            }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+            .bg img {
+                width: 100%;
+                height: auto;
+                -o-object-fit: cover;
+                object-fit: cover;
+            }
+
+        .header_section {
+            padding: 15px 0;
+        }
+
+            .header_section .container-fluid {
+                padding-right: 25px;
+                padding-left: 25px;
+            }
+
+        .sub_page .hero_area .bg-box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+            .sub_page .hero_area .bg-box img {
+                width: 100%;
+                height: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+                -o-object-position: right top;
+                object-position: right top;
+            }
+
+        .header_section {
+            padding: 15px 0;
+        }
+
+        .heading_container.heading_center {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .header_section .container-fluid {
+            padding-right: 25px;
+            padding-left: 25px;
+        }
+
+
+        .sub_page .hero_area {
+            min-height: auto;
+        }
+
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+        }
+
+            .navbar-brand span {
+                font-weight: bold;
+                font-size: 32px;
+                color: #ffffff;
+            }
+
+        .custom_nav-container {
+            padding: 0;
+        }
+
+            .custom_nav-container .navbar-nav {
+                padding-left: 18%;
+            }
+
+                .custom_nav-container .navbar-nav .nav-item .nav-link {
+                    padding: 5px 20px;
+                    color: #ffffff;
+                    text-align: center;
+                    text-transform: uppercase;
+                    border-radius: 5px;
+                    -webkit-transition: all 0.3s;
+                    transition: all 0.3s;
+                }
+
+                .custom_nav-container .navbar-nav .nav-item:hover .nav-link, .custom_nav-container .navbar-nav .nav-item.active .nav-link {
+                    color: #ffbe33;
+                }
+
+            .custom_nav-container .nav_search-btn {
+                width: auto;
+                height: auto;
+                padding: 0;
+                border: none;
+                color: #ffffff;
+                margin: 0 10px;
+            }
+
+                .custom_nav-container .nav_search-btn:hover {
+                    color: #ffbe33;
+                }
+
+        .user_option {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        a,
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+
+            a:hover,
+            a:focus {
+                color: initial;
+            }
+
+        .btn,
+        .btn:focus {
+            outline: none !important;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .user_option a {
+            margin: 0 10px;
+        }
+
+        .user_option .user_link {
+            color: #ffffff;
+        }
+
+            .user_option .user_link:hover {
+                color: #ffbe33;
+            }
+
+        .user_option .cart_link {
+            color: #ffffff;
+        }
+
+            .user_option .cart_link:hover {
+                color: #ffbe33;
+            }
+
+        .user_option .order_online {
+            display: inline-block;
+            padding: 8px 30px;
+            background-color: #ffbe33;
+            color: #ffffff;
+            border-radius: 45px;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+            border: none;
+        }
+
+            .user_option .order_online:hover {
+                background-color: #e69c00;
+            }
+
+        /*toggle start*/
+        .custom_nav-container .navbar-toggler {
+            outline: none;
+        }
+
+        .custom_nav-container .navbar-toggler {
+            padding: 0;
+            width: 37px;
+            height: 42px;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+            .custom_nav-container .navbar-toggler span {
+                display: block;
+                width: 35px;
+                height: 4px;
+                background-color: #ffffff;
+                margin: 7px 0;
+                -webkit-transition: all 0.3s;
+                transition: all 0.3s;
+                position: relative;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+
+                .custom_nav-container .navbar-toggler span::before, .custom_nav-container .navbar-toggler span::after {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-color: #ffffff;
+                    top: -10px;
+                    border-radius: 5px;
+                    -webkit-transition: all 0.3s;
+                    transition: all 0.3s;
+                }
+
+                .custom_nav-container .navbar-toggler span::after {
+                    top: 10px;
+                }
+
+            .custom_nav-container .navbar-toggler[aria-expanded="true"] {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+
+                .custom_nav-container .navbar-toggler[aria-expanded="true"] span {
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+
+                    .custom_nav-container .navbar-toggler[aria-expanded="true"] span::before, .custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
+                        -webkit-transform: rotate(90deg);
+                        transform: rotate(90deg);
+                        top: 0;
+                    }
+        /*toggle end*/
+
+        /*Header ed*/
+
+        /*Slider start*/
+        .slider_section {
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            position: relative;
+            padding: 45px 0 75px 0;
+        }
+
+            .slider_section .row {
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+            }
+
+            .slider_section #customCarousel1 {
+                width: 100%;
+                position: unset;
+            }
+
+            .slider_section .detail-box {
+                color: #ffffff;
+                margin-bottom: 145px;
+            }
+
+                .slider_section .detail-box h1 {
+                    font-size: 3.5rem;
+                    font-weight: bold;
+                    margin-bottom: 15px;
+                }
+
+                .slider_section .detail-box p {
+                    font-size: 14px;
+                }
+
+                .slider_section .detail-box a {
+                    display: inline-block;
+                    padding: 10px 45px;
+                    background-color: #ffbe33;
+                    color: #ffffff;
+                    border-radius: 45px;
+                    /*            -webkit-transition: all 0.3s;
+                            transition: all 0.3s;*/
+                    border: none;
+                    margin-top: 10px;
+                }
+
+                    .slider_section .detail-box a:hover {
+                        background-color: #e69c00;
+                    }
+
+            .slider_section .img-box img {
+                width: 100%;
+            }
+
+            .slider_section .carousel-indicators {
+                position: unset; /*for set them at correct position*/
+                margin: 0;
+                -webkit-box-pack: start;
+                -ms-flex-pack: start;
+                justify-content: flex-start;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+            }
+
+                .slider_section .carousel-indicators li {
+                    background-color: #ffffff;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 100%;
+                    opacity: 1;
+                }
+
+                    .slider_section .carousel-indicators li.active {
+                        width: 20px;
+                        height: 20px;
+                        background-color: #ffbe33;
+                    }
+
+        /* /*    /*Slider end*/
+        /*  #nav1 {
+                    position: absolute;
+                    width: 100%;
+                    z-index: 1000;
+                }
+
+                .about {
+                    text-align: left;
+                    padding: 280px;
+                }
+
+                .puriF {
+                    text-align: center;
+                    margin-bottom: 50%;
+                    width: 50%;
+                }
+
+
+
+                .div1 {
+                    position: relative;
+                }
+
+
+                .btn-grad {
+                    background-image: linear-gradient(to right, #232526 0%, #414345 51%, #232526 100%);
+                    margin: 10px;
+                    padding: 15px 45px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    transition: 0.5s;
+                    background-size: 200% auto;
+                    color: white;
+                    box-shadow: 0 0 20px #eee;
+                    border-radius: 10px;
+                    display: block;
+                }
+
+                    .btn-grad:hover {
+                        background-position: right center;
+                        color: #fff;
+                        text-decoration: none;
+                    }
+
+                h1 {
+                    font-size: 72px;
+                    background: -webkit-linear-gradient(#eee, #333);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                p {
+                    font-size: 18px;
+                    font-family:luminari,fantasy;
+                    background: -webkit-linear-gradient(#eee, #333);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                } */
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="~/Image/hero-bg1.jpg" alt="">
+        </div>
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" asp-action="FoodMain">
+                        <span>
+                            FoodShot
+                        </span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        @* <ul class="navbar-nav  mx-auto ">
+                        <li class="nav-item active">
+                        <a class="nav-link" asp-action="Home">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" asp-action="AdminM" asp-controller="Admin">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" asp-action="Contact">Contact</a>
+                        </li>
+                        </ul> *@
+                        <div class="user_option ml-auto">
+                            @*   <a href="" class="user_link">
+                            <i class="fa fa-user" title="Next Page"></i>
+                            </a> *@
+                            <a class="cart_link" href="/Home/Login">
+                                <i class="fa-solid fa-user-plus fa-lg"></i>
+                            </a>
+                            @*  <form class="form-inline">
+                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                            <i class="fa-solid fa-magnifying-glass fa-beat"></i>
+                            </button>
+                            </form> *@
+
+
+                            @*
+                            <a href="/Home/Login" class="btn-grad d-inline order_online">LogIn</a>
+                            <a href="/Home/Customer" class="btn-grad d-inline order_online ">SignIn</a>
+                            *@
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="slider_section ">
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-6 ">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Eat to your heart’s content
+                                        </h1>
+                                        <p>
+                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                        </p>
+                                        <div class="btn-box">
+
+
+                                            <a href="/Home/Login" class="btn-grad d-inline btn1">LogIn</a>
+                                            <a href="/Home/Customer" class="btn-grad d-inline ">SignIn</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-6 ">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Fresh, Fast and Delicious!
+                                        </h1>
+                                        <p>
+                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                        </p>
+                                        <div class="btn-box">
+
+
+                                            <a href="/Home/Login" class="btn-grad d-inline btn1">LogIn</a>
+                                            <a href="/Home/Customer" class="btn-grad d-inline ">SignIn</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-6 ">
+                                    <div class="detail-box">
+                                        <h1>
+                                            A taste of home
+                                        </h1>
+                                        <p>
+                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad mollitia laborum quam quisquam esse error unde. Tempora ex doloremque, labore, sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                        </p>
+                                        <div class="btn-box">
+
+
+                                            <a href="/Home/Login" class="btn-grad d-inline btn1">LogIn</a>
+                                            <a href="/Home/Customer" class="btn-grad d-inline ">SignIn</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <ol class="carousel-indicators">
+                        <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+                        <li data-target="#customCarousel1" data-slide-to="1"></li>
+                        <li data-target="#customCarousel1" data-slide-to="2"></li>
+                    </ol>
+                </div>
+            </div>
+
+        </section>
+    </div>
+    @*  <nav id="nav1" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Foodiee</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+    <a class="nav-link" href="/Home/ListView">Menu</a>
+    </li>
+    @* <li class="nav-item">
+    <a class="nav-link" href="/Home/Customer">Register</a>
+    </li> *@
+    @*  <li class="nav-item">
+    <a class="nav-link" href="/Home/ViewCustomer">ViewCustomer</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link" href="/Home/Bill">Bill</a>
+    </li>
+    </ul>
+    </div>
+    </nav> *@
+
+
+
+    @*   <div class="div1">
+
+    <section class="about-section">
+    <div class="mycontainer">
+    <div class="row">
+    <div id="food" class="col-md-6 about">
+    <h1 class="linear-gradient">Foodiee</h1>
+    <br />
+    <p>
+    Step into a gastronomic haven where innovation dances on your palate and tradition whispers in every aroma.
+    Our restaurant is a canvas of culinary artistry, blending the finest ingredients with creative flair. Each dish is a
+    testament to our commitment to excellence, inviting you to embark on a sensory voyage that transcends the ordinary.
+
+    </p>
+
+    <br />
+    <br />
+    <div class="btns">
+    <a href="/Home/Login" class="btn-grad d-inline">LogIn</a>
+    <a href="/Home/Customer" class="btn-grad d-inline ">SignIn</a>
+    </div>
+
+    </div>
+
+    <div class="col-md-6">
+    </div>
+    </div>
+    </div>
+    </section>
+    </div>
+    *@
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

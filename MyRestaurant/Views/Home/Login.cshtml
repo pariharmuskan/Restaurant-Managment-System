@@ -1,0 +1,317 @@
+﻿@model MyRestaurant.Models.User
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Restaurant Management Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /*   .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        } */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .back-page {
+            background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url('../Image/cuisine-food-india-indian-wallpaper-preview.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 600px;
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Top margin for the card */
+        }
+
+        .image-slider {
+            overflow: hidden;
+            background-color: rgba(255, 165, 0, .9);
+            position: relative;
+        }
+
+        .image-slider-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .image-slider img {
+            width: 100%;
+            height: 50%;
+        }
+
+        .login-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .btn-login {
+            background-color: #ff8c00;
+            border-radius: 10px;
+        }
+
+        .btn-signup {
+            background-color: #ff8c00;
+            border-radius: 10px;
+        }
+
+        .dot-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            padding: 15px;
+            border: none; /* Remove border */
+            border-bottom: 1px solid #ced4da; /* Keep only the bottom border */
+            border-radius: 0; /* Remove border-radius */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Add box-shadow transition */
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: #495057;
+            transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+        }
+
+        .form-group .icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #ced4da;
+            pointer-events: none; /* Prevent the icon from being clickable */
+            opacity: 1; /* Initially show the icon */
+            transition: opacity 0.3s ease, color 0.3s ease; /* Add opacity and color transition */
+        }
+
+        .form-group input:focus {
+            border-color: transparent; /* Hide the bottom border */
+            box-shadow: 0 3px 5px rgba(255, 140, 0, 0.25); /* Add a box shadow to simulate the border */
+        }
+
+            .form-group input:focus + label, .form-group input:not(:placeholder-shown) + label {
+                top: 10px;
+                font-size: 12px;
+                color: #ff8c00;
+            }
+
+            .form-group input:focus + .icon {
+                opacity: 0; /* Hide the icon on focus */
+                color: #ff8c00; /* Show orange-colored icon on focus */
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container back-page">
+        <div class="card login-card">
+            <div class="row g-0">
+                <div class="col-md-6 image-slider">
+                    <div class="image-slider-inner">
+                        <img src="~/Image/ifoto-ai_1705857921951.png" alt="Food 1">
+                        <img src="~/Image/AdobeStock_618923474_Preview (1).png" alt="Food 2">
+                        <img src="~/Image/foodiesfeed.com_bowl-of-ice-cream-with-chocolate.png" alt="Food 3">
+                    </div>
+                    <div class="dot-container">
+                        <div class="dot" onclick="changeImage(0)"></div>
+                        <div class="dot" onclick="changeImage(1)"></div>
+                        <div class="dot" onclick="changeImage(2)"></div>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <div class="col-md-6">
+                    <div class="card-body login-form">
+                        <h2 class="card-title text-center mb-4">Restaurant Login</h2>
+                        <form method="post" action="Login">
+                            <div class="mb-3 form-group">
+                                <input type="text" class="form-control" id="username" asp-for="UserName" name="username" placeholder=" " required>
+
+
+                                <label for="username" class="form-label">Username</label>
+                                <i class="icon fas fa-user"></i>
+                            </div>
+                            <div class="mb-3 form-group">
+                                
+                                <input type="password" class="form-control" id="password" asp-for="Password" name="password" placeholder=" " required>
+                                <label for="password" class="form-label">Password</label>
+                                <i class="icon fas fa-lock"></i>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 btn-login" onclick="changeColor()">Login</button>
+                            <div class="register-link">
+                                <p>Don't have an account? <a href="/Home/Customer">Register</a></p>
+                            </div>
+      
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const imageSlider = document.querySelector('.image-slider-inner');
+        let currentIndex = 0;
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % 3;
+            updateSliderPosition();
+        }
+
+        function updateSliderPosition() {
+            const newPosition = -currentIndex * 100 + '%';
+            imageSlider.style.transform = 'translateX(' + newPosition + ')';
+        }
+
+        function changeImage(index) {
+            currentIndex = index;
+            updateSliderPosition();
+        }
+
+        function changeColor() {
+            document.querySelector('.btn-login').style.backgroundColor = 'rgba(15, 23, 43, .9)';
+        }
+
+        setInterval(showNextImage, 3000);
+    </script>
+</body>
+</html>
+
+
+@* <!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            background-image: url('/image/flat-lay-different-ingredients-composition-with-copy-space.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+
+
+        .login-container {
+            width: 300px;
+            height: 400px;
+            margin: auto;
+            background-color: transparent;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 10px 10px 10px rgba(245, 243, 225, );
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+            .login-container h2 {
+                text-align: center;
+            }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                font-weight: bold;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .register-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+            .register-link a {
+                color: #007bff;
+                text-decoration: none;
+            }
+    </style>
+</head>
+<body>
+    @* <img src="https://images.unsplash.com/photo-1513618364580-fe1596762e8e?auto=format&fit=crop&q=80&w=1887&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"> *@
+
+    @*  <img src="https://www.hotelmousai.com/blog/wp-content/uploads/2021/12/Top-10-Traditional-Foods-in-Italy.jpg" > *@
+ @*    <div class="login-container">
+        <h2>Login</h2>
+        <form method="post" action="Login">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" asp-for="UserName">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" asp-for="Password">
+            </div>
+            <div class="btn-container">
+                <button type="submit" class="login-btn">Login</button>
+            </div>
+        </form>
+        <div class="register-link">
+            <p>Don't have an account? <a href="/Home/Customer">Register</a></p>
+        </div>
+    </div>
+</body>
+</html>  *@
+
+

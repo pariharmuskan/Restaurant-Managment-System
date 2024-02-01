@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-main.css" />
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/mjs/kendo.all.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script src="js/kendo.all.min.js"></script>
+
+    <style>
+
+
+        body {
+          
+            background-image: url('/image/pexels-pineapple-supply-co-139259.jpg');
+           
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+
+        h1 {
+            text-align: center;
+        }
+
+        .cart-summary {
+            text-align: center;
+        }
+
+        .cart-body h3 {
+            text-align: center;
+            color: #888;
+        }
+
+        .cart-table {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #fff;
+            color:bl;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #000;
+            text-align: left;
+        }
+
+        tfoot {
+            font-weight: bold;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+    </style>
+
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Your Cart </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cart-body">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary checkout-btn">Check Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <div class="container" id="l">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/ListView">Menu</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Bill">Bill</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Customer">Register</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/ViewCustomer">ViewCustomer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Login">Login</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/Home/Cart"><i class="fas fa-shopping-cart"></i> <span class="cart-items"></span> Cart</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/AddMenu/SubMenu">Add SubMenu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-body">
+    </div>
+    <button class="btn btn-dark"> <a class="nav-link" asp-controller="Home" asp-action="Bill" asp-id="generateBillButton">ManualBill</a></button>
+
+    <button type="button" class="btn btn-dark" id="GenerateBill" onclick="window.print()">AutoGenerateBill</button>
+
+
+    <script>
+
+
+        // Function to update the cart display
+        function updateCart() {
+            console.log("update cart");
+
+            // Retrieve cart from local storage
+            let cartString = localStorage.getItem("cart");
+            let cart = JSON.parse(cartString);
+
+            // Check if the cart is empty
+            if (cart == null || cart.length == 0) {
+                console.log("cart is empty");
+
+                // Update UI for an empty cart
+                $(".cart-items").html("( 0 )");
+                $(".cart-body").html("<h3>Cart has no items </h3>");
+            } else {
+                console.log(cart);
+
+                // Update UI for a non-empty cart
+                $(".cart-items").html(`(${cart.length})`);
+
+                let table = `<table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Item Name</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                                <th>Total Price</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>`;
+
+                let totalPrice = 0;
+
+                // Iterate over each item in the cart
+                cart.forEach((item) => {
+                    table += `<tr>
+                                                        <td>${item.subMenuId}</td>
+                                                        <td>${item.subMenuName}</td>
+                                                        <td>${item.price}</td>
+                                                        <td>${item.Quantity}</td>
+                                                        <td>${(item.Quantity * item.price).toString()}</td>
+                                                        <td>
+                                                            <button onclick="deleteItemFromCart(${item.subMenuId})" class="btn btn-danger btn-sm">Remove</button>
+                                                        </td>
+                                                    </tr>`;
+
+                    totalPrice += item.price * item.Quantity;
+                });
+
+                table += `<tr>
+                                                    <td colspan='5' class='text-right'>Total Price: ${totalPrice.toString()}</td>
+                                                </tr>
+                                            </table>`;
+
+                // Update cart body with the table
+                $(".cart-body").html(table);
+            }
+        }
+
+        // Function to delete an item from the cart
+        function deleteItemFromCart(subMenuId) {
+            let cart = JSON.parse(localStorage.getItem('cart'));
+
+            // Filter out the item with the specified subMenuId
+            let newCart = cart.filter((item) => item.subMenuId != subMenuId);
+
+            // Update the cart in local storage
+            localStorage.setItem('cart', JSON.stringify(newCart));
+
+            // Update the cart display
+            updateCart();
+        }
+
+        // Document ready function to initialize the cart display
+        $(document).ready(function () {
+            updateCart();
+        });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+﻿@model IEnumerable<MyRestaurant.Models.Customer>
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!-- Add these scripts to your _Layout.cshtml file -->
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid.min.js"></script>
+    <script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid-enterprise.min.js"></script>
+    <script src="https://cdn.ag-grid.com/ag-grid/latest/ag-grid-enterprise.min.js/dist/ag-grid-community.min.noStyle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@30.2.0/dist/ag-grid-enterprise.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+
+
+        body {
+            background-image: url('/image/herbs-vegetables-white-background.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .whole-page {
+            background-color: white;
+        }
+
+        .ag-theme-alpine-dark {
+            background-color: lightgray
+        }
+
+        .container {
+            position: absolute;
+        }
+
+
+
+
+        #navbarNav {
+            margin-left: 450px;
+        }
+    </style>
+
+</head>
+<body body class="whole-page">
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ListView">Menu</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Bill">Bill</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Customer">Register</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/ViewCustomer">ViewCustomer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div>
+            <button onclick="onBtExport()" style="margin-bottom: 5px; font-weight: bold">
+                Export to Excel
+            </button>
+           
+        </div>
+        <br />
+        <div id="grid" style=" height: 500px; width:100%;" class="ag-theme-quartz"></div>
+        
+    </div>
+   
+
+   
+
+
+    <script>
+        // JavaScript code to configure and populate the AG-Grid
+        console.log("from view Customer")
+        var gridOptions = {
+            columnDefs: [
+                { headerName: 'CId', field: 'customerId', },
+                { headerName: 'Name', field: 'customerName' },
+                { headerName: 'Email', field: 'customerEmail' },
+
+                { headerName: 'Customer Number', field: 'customerPhone' },
+
+                {
+                    headerName: 'Actions',
+                    cellRenderer: function (params) {
+                        return `<button class="btn-delete" onclick="deleteItem(${params.data.customerId})">Delete</button>`;
+                    },
+                    editable: false,
+                },
+            ],
+
+
+            defaultColDef: {
+                sortable: true,
+                filter: true,
+                resizable: true,
+                width: 250,
+                editable: true,
+                cellDataType: false,
+                scrollale: true,
+            },
+            rowHeight: 100,
+            pagination: true,
+
+            paginationPageSize: 15,
+            rowData: @Html.Raw(Json.Serialize(Model)),
+
+            onCellValueChanged: function (params) {
+                
+                $.ajax({
+                    url: '/Home/UpdateData',
+                    type: 'POST',
+                    data: params.data,
+                    success: function (response) {
+                        if (response.success) {
+                           
+                        } else {
+                            
+                        }
+                    },
+                    error: function () {
+                        
+                    }
+                });
+
+
+            }
+        };
+
+
+        function deleteItem(Id) {
+
+            // Implement the delete action here (e.g., show a confirmation dialog and then delete)
+            if (confirm('Are you sure you want to delete this item?', Id)) {
+                // Send an AJAX request to delete the item
+                $.ajax({
+                    url: '/Home/DelCustomer/' + Id,
+                    type: 'DELETE',
+                    success: function () {
+                        // Reload the grid or remove the deleted row
+                        location.reload();
+                    },
+
+                });
+            }
+        }
+
+        function onBtExport() {
+            gridOptions.api.exportDataAsExcel();
+        };
+        
+        var gridDiv = document.querySelector("#grid");
+        new agGrid.Grid(gridDiv, gridOptions);
+    </script>
+
+
+
+</body>
+</html>

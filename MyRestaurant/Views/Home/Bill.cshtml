@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Bill</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+
+        body {
+            
+            background-image: url('/image/flat-lay-different-ingredients-composition-with-copy-space.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .bill-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color:transparent;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .customer-info label,
+        .order-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .customer-info input[type="text"],
+        .customer-info input[type="number"],
+        .order-details input[type="text"],
+        .order-details input[type="number"] {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+            .customer-info input[type="text"]:focus,
+            .customer-info input[type="number"]:focus,
+            .order-details input[type="text"]:focus,
+            .order-details input[type="number"]:focus {
+                outline: none;
+                border-color: #3498db;
+            }
+
+        #addItemBtn {
+            padding: 8px 12px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            #addItemBtn:hover {
+                background-color: #2980b9;
+            }
+
+        .order-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .order-details ul li {
+                margin-bottom: 5px;
+            }
+
+        .total-amount {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+            .total-amount h2 {
+                margin-top: 0;
+            }
+
+            .total-amount p {
+                font-size: 18px;
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="bill-container">
+        <div class="header">
+            <h1>Restaurant Bill</h1>
+
+        </div>
+        <div class="customer-info">
+            <h2>Customer Information</h2>
+            <label for="customerName">Name:</label>
+            <input type="text" id="customerName">
+            <label for="tableNumber">Table Number:</label>
+            <input type="number" id="tableNumber">
+        </div>
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <ul id="orderList">
+                <!-- Order items will be added dynamically here -->
+            </ul>
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName">
+            <label for="itemPrice">Item Price:</label>
+            <input type="number" step="0.01" id="itemPrice">
+            <button id="addItemBtn">Add Item</button>
+        </div>
+        <div class="total-amount">
+            <h2>Total Amount</h2>
+            <p id="totalAmount"> ₹0.00</p>
+            <button type="button" class="btn btn-dark" id="GenerateBill" onclick="window.print()">GenerateBill</button>
+
+        </div>
+    </div>
+    
+    <script>
+        // Array to store order items
+          let orderItems = [];
+
+          // Function to display order details and calculate total amount
+          function updateBill() {
+              const orderList = document.getElementById('orderList');
+              let totalAmount = 0;
+              orderList.innerHTML = '';
+
+              orderItems.forEach(item => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = `${item.item}: $${item.price.toFixed(2)}`;
+                  orderList.appendChild(listItem);
+                  totalAmount += item.price;
+              });
+
+              document.getElementById('totalAmount').textContent = `$${totalAmount.toFixed(2)}`;
+          }
+        // Event listener for Add Item button
+                document.getElementById('addItemBtn').addEventListener('click', function () {
+                    const itemName = document.getElementById('itemName').value;
+                    const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+
+                    if (itemName.trim() !== '' && !isNaN(itemPrice) && itemPrice > 0) {
+                        orderItems.push({ item: itemName, price: itemPrice });
+                        updateBill();
+                        // Clear input fields after adding item
+                        document.getElementById('itemName').value = '';
+                        document.getElementById('itemPrice').value = '';
+                    } else {
+                        alert('Please enter valid item name and price.');
+                    }
+                });
+
+    </script>
+</body>
+</html>
+
+
+
+
+
